@@ -1,14 +1,14 @@
 <template>
   <el-card style="margin-bottom:20px;">
     <div slot="header" class="clearfix">
-      <span>About me</span>
+      <span>用户信息</span>
     </div>
 
     <div class="user-profile">
       <div class="box-center">
         <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
-          <div>Hello</div>
-          {{ user.role }}
+          <div>你好</div>
+          {{ user.name }}
         </pan-thumb>
       </div>
       <div class="box-center">
@@ -19,31 +19,31 @@
 
     <div class="user-bio">
       <div class="user-education user-bio-section">
-        <div class="user-bio-section-header"><svg-icon icon-class="education" /><span>Education</span></div>
+        <div class="user-bio-section-header"><svg-icon icon-class="education" /><span>学历</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            JS in Computer Science from the University of Technology
+            美国麻省理工学院硕士研究生
           </div>
         </div>
       </div>
 
       <div class="user-skills user-bio-section">
-        <div class="user-bio-section-header"><svg-icon icon-class="skill" /><span>Skills</span></div>
+        <div class="user-bio-section-header"><svg-icon icon-class="skill" /><span>工作技能</span></div>
         <div class="user-bio-section-body">
           <div class="progress-item">
-            <span>Vue</span>
+            <span>机器学习</span>
             <el-progress :percentage="70" />
           </div>
           <div class="progress-item">
-            <span>JavaScript</span>
+            <span>人工智能</span>
             <el-progress :percentage="18" />
           </div>
           <div class="progress-item">
-            <span>Css</span>
+            <span>大数据</span>
             <el-progress :percentage="12" />
           </div>
           <div class="progress-item">
-            <span>ESLint</span>
+            <span>后端开发</span>
             <el-progress :percentage="100" status="success" />
           </div>
         </div>

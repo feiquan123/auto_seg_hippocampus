@@ -85,26 +85,38 @@ export const constantRoutes = [{
   }]
 },
 {
-  path: '/documentation',
+  path: '/data-preprocessing',
   component: Layout,
   children: [{
     path: 'index',
     component: () =>
-      import ('@/views/documentation/index'),
-    name: 'Documentation',
-    meta: { title: 'Documentation', icon: 'documentation', affix: true }
+      import ('@/views/data-preprocessing/index'),
+    name: 'DataPreprocessing',
+    meta: { title: '数据预处理', icon: 'example', affix: true }
   }]
 },
 {
-  path: '/guide',
+  path: '/model-training',
   component: Layout,
-  redirect: '/guide/index',
+  redirect: '/model-training/index',
   children: [{
     path: 'index',
     component: () =>
-      import ('@/views/guide/index'),
-    name: 'Guide',
-    meta: { title: 'Guide', icon: 'guide', noCache: true }
+      import ('@/views/model-training/index'),
+    name: 'ModelTraining',
+    meta: { title: '模型训练', icon: 'guide', noCache: true }
+  }]
+},
+{
+  path: '/model-prediction',
+  component: Layout,
+  redirect: '/model-prediction/index',
+  children: [{
+    path: 'index',
+    component: () =>
+      import ('@/views/model-prediction/index'),
+    name: 'ModelPrediction',
+    meta: { title: '模型预测', icon: 'tab', noCache: true }
   }]
 },
 {
@@ -117,7 +129,7 @@ export const constantRoutes = [{
     component: () =>
       import ('@/views/profile/index'),
     name: 'Profile',
-    meta: { title: 'Profile', icon: 'user', noCache: true }
+    meta: { title: '用户信息', icon: 'user', noCache: true }
   }]
 }
 ]

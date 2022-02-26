@@ -17,24 +17,29 @@ export default {
     return {
       timeline: [
         {
-          timestamp: '2019/4/20',
-          title: 'Update Github template',
-          content: 'PanJiaChen committed 2019/4/20 20:46'
+          timestamp: '2019年9月20日',
+          title: '研究生',
+          content: '美国麻省理工学院 2019年9月20日 08:46'
         },
         {
-          timestamp: '2019/4/21',
-          title: 'Update Github template',
-          content: 'PanJiaChen committed 2019/4/21 20:46'
+          timestamp: '2015年9月20日',
+          title: '大学',
+          content: '清华大学 2015年9月20日 10:46'
         },
         {
-          timestamp: '2019/4/22',
-          title: 'Build Template',
-          content: 'PanJiaChen committed 2019/4/22 20:46'
+          timestamp: '2012年9月21日',
+          title: '高中',
+          content: '清华附中国际部 2012年9月21日 20:46'
         },
         {
-          timestamp: '2019/4/23',
-          title: 'Release New Version',
-          content: 'PanJiaChen committed 2019/4/23 20:46'
+          timestamp: '2009年1月27日',
+          title: '初中',
+          content: '北京市第四中学 2009年1月27日 09:46'
+        },
+        {
+          timestamp: '2003年9月3日',
+          title: '小学',
+          content: '北京市海淀区七一小学 2003年9月3日 20:46'
         }
       ]
     }

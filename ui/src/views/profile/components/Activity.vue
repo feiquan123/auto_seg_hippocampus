@@ -2,66 +2,13 @@
   <div class="user-activity">
     <div class="post">
       <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/57ed425a-c71e-4201-9428-68760c0537c4.jpg'+avatarPrefix">
-        <span class="username text-muted">Iron Man</span>
-        <span class="description">Shared publicly - 7:30 PM today</span>
-      </div>
-      <p>
-        Lorem ipsum represents a long-held tradition for designers,
-        typographers and the like. Some people hate it and argue for
-        its demise, but others ignore the hate as they create awesome
-        tools to help create filler text for everyone from bacon lovers
-        to Charlie Sheen fans.
-      </p>
-      <ul class="list-inline">
-        <li>
-          <span class="link-black text-sm">
-            <i class="el-icon-share" />
-            Share
-          </span>
-        </li>
-        <li>
-          <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
-            Like
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="post">
-      <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/9e2a5d0a-bd5b-457f-ac8e-86554616c87b.jpg'+avatarPrefix">
-        <span class="username text-muted">Captain American</span>
-        <span class="description">Sent you a message - yesterday</span>
-      </div>
-      <p>
-        Lorem ipsum represents a long-held tradition for designers,
-        typographers and the like. Some people hate it and argue for
-        its demise, but others ignore the hate as they create awesome
-        tools to help create filler text for everyone from bacon lovers
-        to Charlie Sheen fans.
-      </p>
-      <ul class="list-inline">
-        <li>
-          <span class="link-black text-sm">
-            <i class="el-icon-share" />
-            Share
-          </span>
-        </li>
-        <li>
-          <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
-            Like
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="post">
-      <div class="user-block">
         <img class="img-circle" :src="'https://wpimg.wallstcn.com/fb57f689-e1ab-443c-af12-8d4066e202e2.jpg'+avatarPrefix">
-        <span class="username">Spider Man</span>
-        <span class="description">Posted 4 photos - 2 days ago</span>
+        <span class="username">文迪</span>
+        <span class="description">前沿分子生物学技术(9) Science | 新方法揭示细胞内蛋白质超微结构 2022-03-10 17:32</span>
       </div>
+      <p>
+        近日，由来自霍华德·休斯医学研究所（The Howard Hughes Medical Institute, HHMI）Janelia实验室的Harald Hess领导的小组在Science上发表了题为‘Correlativethree-dimensional super-resolution and block-face electron microscopy of wholevitreously frozen cells’的文章。研究者们结合使用低温超分辨荧光显微镜和聚焦离子束扫描电子显微镜（FIB-SEM）来观察整个细胞的蛋白质超微结构的三维关系。两种成像方式的融合使得能够在拥挤的细胞内环境中对形态复杂的结构进行识别和三维分割。
+      </p>
       <div class="user-images">
         <el-carousel :interval="6000" type="card" height="220px">
           <el-carousel-item v-for="item in carouselImages" :key="item">
@@ -70,10 +17,64 @@
         </el-carousel>
       </div>
       <ul class="list-inline">
-        <li><span class="link-black text-sm"><i class="el-icon-share" /> Share</span></li>
+        <li><span class="link-black text-sm"><i class="el-icon-share" /> 分享</span></li>
         <li>
           <span class="link-black text-sm">
-            <svg-icon icon-class="like" /> Like</span>
+            <svg-icon icon-class="like" /> 点赞</span>
+        </li>
+      </ul>
+    </div>
+    <div class="post">
+      <div class="user-block">
+        <img class="img-circle" :src="'http://www.qbitai.com/wp-content/uploads/2019/06/200-100x100.jpg'+avatarPrefix">
+        <span class="username text-muted">白交</span>
+        <span class="description">小分子3D结构被AI整明白了 2022-02-23 13:28:30
+        </span>
+      </div>
+      <p>
+        此次百度聚焦的研究，是小分子化合物性质预测。
+        简单来说，通过小分子结构来预测其性质，帮助药物研发的早期探索，从而解决该领域成本高、时间长、成功率低等难题。
+        早在2018年，百度就正式启动了计算生物方向的研究。
+        著名的RNA二级结构开源算法LinearFold，将新冠预测从原来的55分钟提速至27秒（接近120倍），就是百度的研究成果之一。
+        2020年12月，百度正式将自己研究的一系列生物计算相关技术进行了集成，发布了螺旋桨（PaddleHelix）。
+        这是一个囊括了各种各样“AI+计算生物”开源工具的生物计算平台，基于百度飞桨框架开发，可以被用于药物研发、疫苗设计和精准医疗等领域。
+      </p>
+      <ul class="list-inline">
+        <li>
+          <span class="link-black text-sm">
+            <i class="el-icon-share" />
+            分享
+          </span>
+        </li>
+        <li>
+          <span class="link-black text-sm">
+            <svg-icon icon-class="like" />
+            点赞
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="post">
+      <div class="user-block">
+        <img class="img-circle" :src="'http://upload.idcquan.com/2019/0320/1553047920613.jpg'">
+        <span class="username text-muted">孙雨</span>
+        <span class="description">医学AI如何从前沿技术到临床应用?  2022-02-20 10:51</span>
+      </div>
+      <p>
+        医学人工智能可加速药物从研发向临床转化。一种新药从研发到上市至少经历10——15年的时间，平均成本26亿美元。其中，药物研发的时间成本高达11.6亿美元。人工智能在药物研发上能够应用于新药发现阶段与临床实验阶段，在靶点筛选、药物发掘、药物优化、服药依从性管理、药物晶型预测等环节。借助人工智能将大幅缩短新药的研发时间，节省大量人工成本，提高新药研发的效率。
+      </p>
+      <ul class="list-inline">
+        <li>
+          <span class="link-black text-sm">
+            <i class="el-icon-share" />
+            分享
+          </span>
+        </li>
+        <li>
+          <span class="link-black text-sm">
+            <svg-icon icon-class="like" />
+            点赞
+          </span>
         </li>
       </ul>
     </div>
@@ -88,10 +89,10 @@ export default {
   data() {
     return {
       carouselImages: [
-        'https://wpimg.wallstcn.com/9679ffb0-9e0b-4451-9916-e21992218054.jpg',
-        'https://wpimg.wallstcn.com/bcce3734-0837-4b9f-9261-351ef384f75a.jpg',
-        'https://wpimg.wallstcn.com/d1d7b033-d75e-4cd6-ae39-fcd5f1c0a7c5.jpg',
-        'https://wpimg.wallstcn.com/50530061-851b-4ca5-9dc5-2fead928a939.jpg'
+        'https://img1.17img.cn/17img/images/202001/noimg/775b649e-a426-4670-8069-b079cce58d46.gif',
+        'https://pic4.zhimg.com/80/v2-9dca618ec56857954ee140102b861d83_1440w.jpg',
+        'https://pic1.zhimg.com/80/v2-1c1445f6bb2044d34ba1c45ecf2c6770_1440w.jpg',
+        'https://pic3.zhimg.com/80/v2-283129f9d77b1bc8e21a4993296066e2_1440w.jpg'
       ],
       avatarPrefix,
       carouselPrefix
@@ -139,6 +140,7 @@ export default {
     margin-bottom: 15px;
     padding-bottom: 15px;
     color: #666;
+    line-height: 1.7em;
 
     .image {
       width: 100%;

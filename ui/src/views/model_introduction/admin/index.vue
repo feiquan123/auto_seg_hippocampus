@@ -2,7 +2,7 @@
   <div class="introduction-editor-container">
     <github-corner class="github-corner" />
 
-    <panel-group @handleSetIntroductionData="handleSetIntroductionData" />
+    <introduction-panel @handleSetIntroductionData="handleSetIntroductionData" />
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
       <div class="title">
@@ -17,7 +17,7 @@
 
 <script>
 import GithubCorner from '@/components/GithubCorner'
-import PanelGroup from './components/IntroductionPanel'
+import IntroductionPanel from './components/IntroductionPanel'
 
 // 文案内容
 import introduction from './components/introduction/introduction'
@@ -36,7 +36,7 @@ export default {
   name: 'ModelIntroductionAdmin',
   components: {
     GithubCorner,
-    PanelGroup
+    IntroductionPanel
   },
   data() {
     return {

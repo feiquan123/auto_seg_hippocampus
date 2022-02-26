@@ -181,6 +181,10 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+
   .el-input {
     display: inline-block;
     height: 47px;
