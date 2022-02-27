@@ -6,38 +6,6 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-/* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
-
-/**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
-    noCache: true                if set true, the page will no be cached(default is false)
-    affix: true                  if set true, the tag will affix in the tags-view
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
- */
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
 export const constantRoutes = [{
   path: '/redirect',
   component: Layout,
@@ -85,41 +53,6 @@ export const constantRoutes = [{
   }]
 },
 {
-  path: '/data-preprocessing',
-  component: Layout,
-  children: [{
-    path: 'index',
-    component: () =>
-      import ('@/views/data-preprocessing/index'),
-    name: 'DataPreprocessing',
-    meta: { title: '数据预处理', icon: 'example', affix: true }
-  }]
-},
-{
-  path: '/model-training',
-  component: Layout,
-  redirect: '/model-training/index',
-  children: [{
-    path: 'index',
-    component: () =>
-      import ('@/views/model-training/index'),
-    name: 'ModelTraining',
-    meta: { title: '模型训练', icon: 'guide', noCache: true }
-  }]
-},
-{
-  path: '/model-prediction',
-  component: Layout,
-  redirect: '/model-prediction/index',
-  children: [{
-    path: 'index',
-    component: () =>
-      import ('@/views/model-prediction/index'),
-    name: 'ModelPrediction',
-    meta: { title: '模型预测', icon: 'tab', noCache: true }
-  }]
-},
-{
   path: '/profile',
   component: Layout,
   redirect: '/profile/index',
@@ -141,108 +74,23 @@ export const constantRoutes = [{
 export const asyncRoutes = [{
   path: '/permission',
   component: Layout,
-  redirect: '/permission/page',
+  redirect: '/permission/processing',
   alwaysShow: true, // will always show the root menu
   name: 'Permission',
   meta: {
-    title: 'Permission',
-    icon: 'lock',
+    title: '脑肿瘤分割',
+    icon: 'example',
     roles: ['admin', 'editor'] // you can set roles in root nav
   },
   children: [{
-    path: 'page',
+    path: 'processing',
     component: () =>
-      import ('@/views/permission/page'),
-    name: 'PagePermission',
+      import ('@/views/permission/processing/index'),
+    name: 'Processing',
     meta: {
-      title: 'Page Permission',
-      roles: ['admin'] // or you can only set roles in sub nav
-    }
-  },
-  {
-    path: 'directive',
-    component: () =>
-      import ('@/views/permission/directive'),
-    name: 'DirectivePermission',
-    meta: {
-      title: 'Directive Permission'
-      // if do not set roles, means: this page does not require permission
-    }
-  },
-  {
-    path: 'role',
-    component: () =>
-      import ('@/views/permission/role'),
-    name: 'RolePermission',
-    meta: {
-      title: 'Role Permission',
+      title: '脑肿瘤分割流程处理',
       roles: ['admin']
     }
-  }
-  ]
-},
-
-{
-  path: '/icon',
-  component: Layout,
-  children: [{
-    path: 'index',
-    component: () =>
-      import ('@/views/icons/index'),
-    name: 'Icons',
-    meta: { title: 'Icons', icon: 'icon', noCache: true }
-  }]
-},
-
-/** when your routing map is too long, you can split it into small modules **/
-componentsRouter,
-chartsRouter,
-nestedRouter,
-tableRouter,
-
-{
-  path: '/example',
-  component: Layout,
-  redirect: '/example/list',
-  name: 'Example',
-  meta: {
-    title: 'Example',
-    icon: 'el-icon-s-help'
-  },
-  children: [{
-    path: 'create',
-    component: () =>
-      import ('@/views/example/create'),
-    name: 'CreateArticle',
-    meta: { title: 'Create Article', icon: 'edit' }
-  },
-  {
-    path: 'edit/:id(\\d+)',
-    component: () =>
-      import ('@/views/example/edit'),
-    name: 'EditArticle',
-    meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
-    hidden: true
-  },
-  {
-    path: 'list',
-    component: () =>
-      import ('@/views/example/list'),
-    name: 'ArticleList',
-    meta: { title: 'Article List', icon: 'list' }
-  }
-  ]
-},
-
-{
-  path: '/tab',
-  component: Layout,
-  children: [{
-    path: 'index',
-    component: () =>
-      import ('@/views/tab/index'),
-    name: 'Tab',
-    meta: { title: 'Tab', icon: 'tab' }
   }]
 },
 
@@ -252,22 +100,22 @@ tableRouter,
   redirect: 'noRedirect',
   name: 'ErrorPages',
   meta: {
-    title: 'Error Pages',
+    title: '页面丢失',
     icon: '404'
   },
   children: [{
     path: '401',
     component: () =>
       import ('@/views/error-page/401'),
-    name: 'Page401',
-    meta: { title: '401', noCache: true }
+    name: '401',
+    meta: { title: '页面丢失401', noCache: true }
   },
   {
     path: '404',
     component: () =>
       import ('@/views/error-page/404'),
-    name: 'Page404',
-    meta: { title: '404', noCache: true }
+    name: '404',
+    meta: { title: '页面丢失404', noCache: true }
   }
   ]
 },
@@ -280,7 +128,7 @@ tableRouter,
     component: () =>
       import ('@/views/error-log/index'),
     name: 'ErrorLog',
-    meta: { title: 'Error Log', icon: 'bug' }
+    meta: { title: '错误日志', icon: 'bug' }
   }]
 },
 
