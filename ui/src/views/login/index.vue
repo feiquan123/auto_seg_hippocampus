@@ -45,7 +45,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;background-color:#21b7b5" @click.native.prevent="handleLogin">登录</el-button>
 
       <div style="position:relative">
         <div class="tips">
@@ -181,7 +181,7 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
-  background-image: url("");
+  background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.vjshi.com%2F2018-06-01%2F63f82eadbed6b77375a7ba95f03fb03d%2F00001.jpg%3Fx-oss-process%3Dstyle%2Fwatermark&refer=http%3A%2F%2Fpic.vjshi.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648516048&t=e9f25b5108ace3fd347d933ec3796148");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -199,6 +199,7 @@ $cursor: #fff;
       color: $light_gray;
       height: 47px;
       caret-color: $cursor;
+      border: 2px solid rgba($color: #0EFFFE, $alpha: 0.8);
 
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;
@@ -234,6 +235,8 @@ $light_gray:#eee;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    left: 250px;
+    top: 90px;
   }
 
   .tips {
@@ -249,7 +252,7 @@ $light_gray:#eee;
   }
 
   .svg-container {
-    padding: 6px 5px 6px 15px;
+    padding: 6px 5px 6px 5px;
     color: $dark_gray;
     vertical-align: middle;
     width: 30px;

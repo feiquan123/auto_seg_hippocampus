@@ -95,6 +95,7 @@ export default {
   line-height: 28px;
   margin-bottom: 30px;
   font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+  text-indent: 2em;
 
   &> :last-child {
     margin-bottom: 0;
