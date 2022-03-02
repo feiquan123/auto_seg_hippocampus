@@ -9,7 +9,12 @@
         {{ title }}
       </div>
       <div class="msg">
-        <pre class="msg-pre"> {{ msg }} </pre>
+        <div class="msg-pre">
+          <introduction v-if="this.type === 'introduction'" />
+          <theories-technology v-if="this.type === 'theories_technology'" />
+          <image-preprocessing v-if="this.type === 'image_preprocessing'" />
+          <bt-seg v-if="this.type === 'bt_seg'" />
+        </div>
       </div>
     </el-row>
   </div>
@@ -20,34 +25,39 @@ import GithubCorner from '@/components/GithubCorner'
 import IntroductionPanel from './components/IntroductionPanel'
 
 // 文案内容
-import introduction from './components/introduction/introduction'
-import theories_technology from './components/introduction/theories_technology'
-import image_preprocessing from './components/introduction/image_preprocessing'
-import bt_seg from './components/introduction/bt_seg'
+import Introduction from './components/introduction/Introduction'
+import TheoriesTechnology from './components/introduction/TheoriesTechnology'
+import ImagePreprocessing from './components/introduction/ImagePreprocessing'
+import BtSeg from './components/introduction/BtSeg'
 
-const msgs = {
-  introduction: introduction,
-  theories_technology: theories_technology,
-  image_preprocessing: image_preprocessing,
-  bt_seg: bt_seg
+const titles = {
+  introduction: Introduction,
+  theories_technology: TheoriesTechnology,
+  image_preprocessing: ImagePreprocessing,
+  bt_seg: BtSeg
 }
 
 export default {
   name: 'ModelIntroductionAdmin',
   components: {
     GithubCorner,
-    IntroductionPanel
+    IntroductionPanel,
+
+    Introduction,
+    TheoriesTechnology,
+    ImagePreprocessing,
+    BtSeg
   },
   data() {
     return {
-      title: msgs.introduction.title,
-      msg: msgs.introduction.msg
+      title: Introduction.title,
+      type: Introduction.type
     }
   },
   methods: {
     handleSetIntroductionData(type) {
-      this.title = msgs[type].title
-      this.msg = msgs[type].msg
+      this.title = titles[type].title
+      this.type = titles[type].type
     }
   }
 }
@@ -70,6 +80,7 @@ export default {
 }
 
 .msg-pre{
+  text-indent: 2em;
   white-space:pre-wrap;
   word-wrap:normal;
 }
