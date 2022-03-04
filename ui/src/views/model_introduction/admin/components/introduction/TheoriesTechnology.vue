@@ -1,21 +1,24 @@
+
 <template>
   <div>
-    <p>
-      近年来，深度学习在图像分割领域中得到了越来越广泛地应用，并取得了一系列非常优异的成果。1988 年，Kohonen[36]等人首次对神经网络做出了详细的定义。神经网络是由自适应单元并行互联得到的，其可以模拟生物的神经系统对真实世界做出相应的交互反应。McCulloch[37]等人将生物学神经系统模型的简单单元进行数学表达抽象，提出的“M-P 神经元模型”被一直沿用至今。后来，Rosenblatt[38]等人在该模型的基础上，提出了感知机的概念。
-      在神经网络中，神经元接收来自其他神经元传递过来的信息，这些信息通过一定的权值在神经元之间进行传递，神经元利用设定好的激活函数对接收到的总输入值进行整合。M-P 模型结构是一个多输入、单输出的非线性元件，后来的“感知机”以及“多层
-      感知机”的提出，使得神经网络有了一定的理论基础。
-    </p>
-    <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.sj520.cn%2Fsc%2Fima%2F20160806004518_55177_new.jpg&refer=http%3A%2F%2Fwww.sj520.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648825467&t=1099bd39795e48f33ee86641da9595e5" alt="">
-    <p>通过对生物神经科学理论中大脑神经结构进一步研究后，Wiesel[39]等人发现猫的视觉皮层通过层级的方式对信息进行处理，各个层级将信息进行逐步提取，不断的将初始表面信息向高级特征进行抽象。在这些理论基础上，Le Cun[40]等人提出了卷积神经网络（CNN，Convolution Neural Network），后来又提出了经典的 Le Net[41]模型，并将其首次应用到图像处理领域，在手写字符识别任务上取得了优异的效果。该模型具有多个卷积层，每个卷积层使用反向传播算法[42]进行信息之间的传播与整合，使得模型可以获得原始图像的抽象特征表达。2012 年，Krizhevsky[43]等人提出 ALex Net 网络结构在图像分类领域取得了非常不错的效果。后来，在 Image Net 挑战赛中，卷积神经网络大放异彩，涌现出了大量优秀的网络模型，例如：VGG、Xception、ResNet、GoogleNetV1-V4 等，极大地丰富了卷积神经网络在图像领域的应用，使得卷积神经网络成为了计算机视觉领域中的中流砥柱。
-      CNN 结构主要由卷积层、池化层和全连接层组成，但是全连接层参数量庞大，在网络训练时导致计算量过大。另外在使用全连接层后，之前的卷积层提取的特征形成特定的一维向量，网络深度越深，全连接层处理后的信息越加抽象，更具全局性。但是图像的局部信息在不断的卷积和池化操作后却被逐渐弱化，这使得 CNN 在图像分割任务上存在一定的缺陷。Jonathan[6]等人提出全卷积神经网络（FCN，Fully Convolution Network），通过使用反卷积替代原始的全连接层，将图像尺寸恢复至输入尺寸大小，对输出图像中的每个像素都进行预测，进而完成像素级别的分割任务。另外，FCN 使用跨层连接的方式将经过池化处理后的特征图进行融合，用以捕捉图像的局部信息。</p>
+    <div style="width: 100%;height:1000px; position: relative; ">
+
+      <img :src="分割模型" alt="分割模型.png" style="width: 729px; height: 753px;position: absolute; left:50%; top: 15%; margin-left: -350px;margin-top: -120px;">
+    </div>
   </div>
+
 </template>
 
 <script>
-const title = `相关理论与技术`
-
+const title = `分割模型`
 export default {
   title: title,
-  type: 'theories_technology'
+  type: 'theories_technology',
+  data() {
+    return {
+      分割模型: require('/public/image/分割模型.png')
+
+    }
+  }
 }
 </script>

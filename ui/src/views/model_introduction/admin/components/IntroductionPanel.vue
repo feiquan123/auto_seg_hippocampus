@@ -7,9 +7,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Introduction
+            Total Model
           </div>
-          <div class="card-panel-num">绪论</div>
+          <div class="card-panel-num">总模型展示</div>
         </div>
       </div>
     </el-col>
@@ -20,9 +20,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Theory & technology
+            Segmentation Models
           </div>
-          <div class="card-panel-num">理论与技术</div>
+          <div class="card-panel-num">分割模型介绍</div>
         </div>
       </div>
     </el-col>
@@ -33,9 +33,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Image Preprocessing
+            Discriminant Model
           </div>
-          <div class="card-panel-num">医学图像预处理</div>
+          <div class="card-panel-num">判别模型介绍</div>
         </div>
       </div>
     </el-col>
@@ -46,9 +46,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Segmentation Method
+            System Instructions
           </div>
-          <div class="card-panel-num">脑肿瘤图像分割方法</div>
+          <div class="card-panel-num">系统使用说明</div>
         </div>
       </div>
     </el-col>

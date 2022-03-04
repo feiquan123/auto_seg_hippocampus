@@ -1,3 +1,30 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+
+@xiangxiang0901
+feiquan123
+/
+auto_seg_hippocampus
+Private
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+auto_seg_hippocampus/ui/src/views/model_introduction/admin/index.vue
+@feiquan123
+feiquan123 添加本地图片
+Latest commit 1e0d7e9 yesterday
+ History
+ 1 contributor
+112 lines (98 sloc)  2.36 KB
+
 <template>
   <div class="introduction-editor-container">
     <github-corner class="github-corner" />
@@ -23,26 +50,22 @@
 <script>
 import GithubCorner from '@/components/GithubCorner'
 import IntroductionPanel from './components/IntroductionPanel'
-
 // 文案内容
 import Introduction from './components/introduction/Introduction'
 import TheoriesTechnology from './components/introduction/TheoriesTechnology'
 import ImagePreprocessing from './components/introduction/ImagePreprocessing'
 import BtSeg from './components/introduction/BtSeg'
-
 const titles = {
   introduction: Introduction,
   theories_technology: TheoriesTechnology,
   image_preprocessing: ImagePreprocessing,
   bt_seg: BtSeg
 }
-
 export default {
   name: 'ModelIntroductionAdmin',
   components: {
     GithubCorner,
     IntroductionPanel,
-
     Introduction,
     TheoriesTechnology,
     ImagePreprocessing,
@@ -71,42 +94,49 @@ export default {
   font-weight:bold;
   color:#103838;
 }
-
 .msg{
   line-height:2.5em;
   word-break:break-all;
   padding: 16px;
   color:#185757;
 }
-
 .msg-pre{
   text-indent: 2em;
   white-space:pre-wrap;
   word-wrap:normal;
 }
-
 .introduction-editor-container {
   padding: 32px;
   background-color: rgb(240, 242, 245);
   position: relative;
-
   .github-corner {
     position: absolute;
     top: 0px;
     border: 0;
     right: 0;
   }
-
   .chart-wrapper {
     background: #fff;
     padding: 0px 16px 16px 0px;
     margin-bottom: 32px;
   }
 }
-
 @media (max-width:1024px) {
   .chart-wrapper {
     padding: 8px;
   }
 }
 </style>
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
