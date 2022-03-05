@@ -24,6 +24,10 @@ export default {
     height: {
       type: String,
       default: '200px'
+    },
+    chartData: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -49,7 +53,7 @@ export default {
         backgroundColor: '#394056',
         title: {
           top: 20,
-          text: '模型测试 DICE',
+          text: this.chartData.title,
           textStyle: {
             fontWeight: 'normal',
             fontSize: 16,
@@ -71,7 +75,7 @@ export default {
           itemWidth: 14,
           itemHeight: 5,
           itemGap: 13,
-          data: ['Unet', 'ResUnet', 'MMIgan'],
+          data: this.chartData.legendNames,
           right: '4%',
           textStyle: {
             fontSize: 12,
@@ -93,7 +97,7 @@ export default {
               color: '#57617B'
             }
           },
-          data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55']
+          data: this.chartData.xData
         }],
         yAxis: [{
           type: 'value',
@@ -119,7 +123,7 @@ export default {
           }
         }],
         series: [{
-          name: 'Unet',
+          name: this.chartData.Unet.name,
           type: 'line',
           smooth: true,
           symbol: 'circle',
@@ -151,9 +155,9 @@ export default {
 
             }
           },
-          data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
+          data: this.chartData.Unet.data
         }, {
-          name: 'ResUnet',
+          name: this.chartData.ResUnet.name,
           type: 'line',
           smooth: true,
           symbol: 'circle',
@@ -185,9 +189,9 @@ export default {
 
             }
           },
-          data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
+          data: this.chartData.ResUnet.data
         }, {
-          name: 'MMIgan',
+          name: this.chartData.MMIgan.name,
           type: 'line',
           smooth: true,
           symbol: 'circle',
@@ -218,7 +222,7 @@ export default {
               borderWidth: 12
             }
           },
-          data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
+          data: this.chartData.MMIgan.data
         }]
       })
     }

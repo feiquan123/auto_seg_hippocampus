@@ -19,9 +19,9 @@
             placeholder="请粘贴绝对路径"
             class="input-with-select"
             style="width:400px; max-width:100%;"
-            @input="dataPreDirInputInput($event)"
+            @input="dataPreDirInputInput"
           />
-          <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled" @click="dataPreBtnChange(dataPreDir,$event)">开始预处理</el-button>
+          <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled" @click="dataPreBtnChange">开始预处理</el-button>
         </el-row>
       </el-tab-pane>
 
@@ -36,12 +36,12 @@
           <el-row>
             <span class="span-desc">数据预处理结果集</span>
             <el-input
-              v-model="dataPreOutputData"
+              v-model="dataPreOutPutPath"
               class="input-with-select"
               style="width:400px; max-width:100%;"
               disabled
             />
-            <el-button type="primary" icon="el-icon-document" :disabled="!dataPreRequestSuccess" @click="modelTestingBtnChange(dataPreOutputData,$event)">开始模型预测</el-button>
+            <el-button type="primary" icon="el-icon-document" :disabled="!dataPreRequestSuccess" @click="modelTestingBtnChange">开始模型预测</el-button>
           </el-row>
         </div>
 
@@ -80,7 +80,7 @@
           </el-row>
           <br>
           <div class="chart-container">
-            <model-testing-dice-chart :height="chartHeight" :width="chartWidth" />
+            <model-testing-dice-chart :height="chartHeight" :width="chartWidth" :chart-data="chartData" />
           </div>
         </div>
       </el-tab-pane>
@@ -93,6 +93,9 @@
 <script>
 import ModelTestingDiceChart from './components/charts/ModelTestingDiceChart.vue'
 
+import { dataPre } from '@/api/data-pre'
+import { dataTest } from '@/api/data-test'
+
 export default {
   name: 'Processing',
   components: {
@@ -102,11 +105,12 @@ export default {
     return {
       chartHeight: '400px',
       chartWidth: '100%',
+      chartData: {},
 
       dataPreRequestSuccess: false,
       dataPreDir: '',
       dataPreDisabled: true,
-      dataPreOutputData: '',
+      dataPreOutPutPath: '',
 
       modelTestingRequestSuccess: false,
       modelUnetTestingOutputData: '',
@@ -120,16 +124,16 @@ export default {
     dataPreDirInputInput(e) {
       this.dataPreDisabled = e.length === 0
     },
-    dataPreBtnChange(dir, e) {
-      // 数据预处理
-      // 请求成功
 
-      const data = '/tmp/pre_dataset'
-      this.dataPreRequestSuccessAction(data)
+    dataPreBtnChange() {
+      // 数据预处理
+      dataPre(this.dataPreDir).then(res => {
+        this.dataPreRequestSuccessAction(res.data)
+      })
     },
     dataPreRequestSuccessAction(data) {
       this.dataPreRequestSuccess = true
-      this.dataPreOutputData = data
+      this.dataPreOutPutPath = data.dataPreOutPutPath
       this.$message({
         message: '数据预处理成功',
         type: 'success',
@@ -137,23 +141,18 @@ export default {
       })
     },
 
-    modelTestingBtnChange(dir, e) {
+    modelTestingBtnChange() {
       // 模型测试
-      console.log('modelTestingBtnChange')
-      // 请求成功
-
-      const data = {
-        Unet: '/tmp/unet_model_testing',
-        ResUnet: '/tmp/resunet_model_testing',
-        MMIgan: '/tmp/mmigan_model_testing'
-      }
-      this.modelTestingSuccessAction(data)
+      dataTest(this.dataPreOutPutPath).then(res => {
+        this.modelTestingSuccessAction(res.data)
+      })
     },
     modelTestingSuccessAction(data) {
       this.modelTestingRequestSuccess = true
-      this.modelUnetTestingOutputData = data.Unet
-      this.modelResUnetTestingOutputData = data.ResUnet
-      this.modelMMIganTestingOutputData = data.MMIgan
+      this.modelUnetTestingOutputData = data.Unet.path
+      this.modelResUnetTestingOutputData = data.ResUnet.path
+      this.modelMMIganTestingOutputData = data.MMIgan.path
+      this.chartData = data
 
       this.$message({
         message: '模型测试完成',
