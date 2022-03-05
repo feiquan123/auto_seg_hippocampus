@@ -1,22 +1,17 @@
 <template>
   <div class="data-preprocessing-container">
     <el-tabs type="border-card" style="width:100%;">
-      <el-tab-pane label="预处理数据集">
+      <el-tab-pane label="数据预处理">
         <el-row>
           <p>
             本实验采用公开的brats18和brats19数据集，将brats18数据按照8:2的比例分开分别用于模型的训练和验证，用brats19数据中额外增加的50例数据用于模型的测试。<br>
-            <br>实验数据预处理步骤如下：
-            <ol>
-              <li>标准化多模态</li>
-              <li>裁剪</li>
-              <li>对各模态及其GT数据进行切片，并抛弃（剔除）无病灶切片</li>
-              <li>将T1、T1c、T2、FLAIR模态的相应切片沿通道维度连接，用作MMIgan模型的多通道输入</li>
-            </ol>
+            <img :src="实验预处理步骤" alt="实验预处理步骤" class="data-pre-img">
           </p>
+          <div />
         </el-row>
 
         <el-row>
-          <span class="span-desc"> 文件夹路径 </span>
+          <span class="span-desc"> 预处理文件夹路径 </span>
           <el-input
             ref="data_pre_dir"
             v-model="dataPreDir"
@@ -30,39 +25,6 @@
         </el-row>
       </el-tab-pane>
 
-      <el-tab-pane label="模型训练">
-        <el-row>
-          <p>
-            为了提高对脑肿瘤的更小区域（肿瘤核心和增强肿瘤）分割的准确率，本文提出了以生成对抗模型为基本架构的网络模型。提出的模型（MMIGAN）主要由生成模型和对抗模型组成。生成模型由Residual Block 3残差结构和跳跃连接构成。对抗网络采用卷积神经网络，对生成模型生成的分割结果和专家分割结果进行判别。经过对抗模型的损失计算不断优化生成模型，使生成模型达到分割脑肿瘤的最优状态
-          </p>
-        </el-row>
-
-        <div v-if="this.dataPreRequestSuccess">
-          <el-row>
-            <span class="span-desc">数据集预处理结果</span>
-            <el-input
-              v-model="dataPreOutputData"
-              class="input-with-select"
-              style="width:400px; max-width:100%;"
-              disabled
-            />
-            <el-button type="primary" icon="el-icon-document" :disabled="!dataPreRequestSuccess" @click="modelTrainingBtnChange(dataPreOutputData,$event)">开始模型训练</el-button>
-          </el-row>
-
-          <div v-if="this.modelTrainingRequestSuccess">
-            <br>
-            <hr>
-            <br>
-            <span class="span-desc">模型预测结果</span>
-            <div class="chart-container">
-              <model-train-loss-chart :height="chartHeight" :width="chartWidth" />
-              <br>
-              <model-train-iou-chart :height="chartHeight" :width="chartWidth" />
-            </div>
-          </div>
-        </div>
-      </el-tab-pane>
-
       <el-tab-pane label="模型预测">
         <el-row>
           <p>
@@ -70,16 +32,16 @@
           </p>
         </el-row>
 
-        <div v-if="this.modelTrainingRequestSuccess">
+        <div v-if="this.dataPreRequestSuccess">
           <el-row>
-            <span class="span-desc">模型训练结果</span>
+            <span class="span-desc">数据预处理结果集</span>
             <el-input
-              v-model="modelTrainingOutputData"
+              v-model="dataPreOutputData"
               class="input-with-select"
               style="width:400px; max-width:100%;"
               disabled
             />
-            <el-button type="primary" icon="el-icon-document" :disabled="!modelTrainingRequestSuccess" @click="modelTestingBtnChange(dataPreDir,$event)">开始模型预测</el-button>
+            <el-button type="primary" icon="el-icon-document" :disabled="!dataPreRequestSuccess" @click="modelTestingBtnChange(dataPreOutputData,$event)">开始模型预测</el-button>
           </el-row>
         </div>
 
@@ -87,13 +49,36 @@
           <br>
           <hr>
           <br>
-          <span class="span-desc">模型预测结果</span>
-          <el-input
-            v-model="modelTestingOutputData"
-            class="input-with-select"
-            style="width:400px; max-width:100%;"
-            disabled
-          />
+          <el-row>
+            <span class="span-desc">Unet 模型预测结果</span>
+            <el-input
+              v-model="modelUnetTestingOutputData"
+              class="input-with-select"
+              style="width:400px; max-width:100%;"
+              disabled
+            />
+          </el-row>
+          <br>
+          <el-row>
+            <span class="span-desc">ResUnet 模型预测结果</span>
+            <el-input
+              v-model="modelResUnetTestingOutputData"
+              class="input-with-select"
+              style="width:400px; max-width:100%;"
+              disabled
+            />
+          </el-row>
+          <br>
+          <el-row>
+            <span class="span-desc">MMIgan 模型预测结果</span>
+            <el-input
+              v-model="modelMMIganTestingOutputData"
+              class="input-with-select"
+              style="width:400px; max-width:100%;"
+              disabled
+            />
+          </el-row>
+          <br>
           <div class="chart-container">
             <model-testing-dice-chart :height="chartHeight" :width="chartWidth" />
           </div>
@@ -106,15 +91,11 @@
 </template>
 
 <script>
-import ModelTrainLossChart from './components/charts/ModelTrainLossChart.vue'
-import ModelTrainIouChart from './components/charts/ModelTrainIouChart.vue'
 import ModelTestingDiceChart from './components/charts/ModelTestingDiceChart.vue'
 
 export default {
   name: 'Processing',
   components: {
-    ModelTrainLossChart,
-    ModelTrainIouChart,
     ModelTestingDiceChart
   },
   data() {
@@ -127,11 +108,12 @@ export default {
       dataPreDisabled: true,
       dataPreOutputData: '',
 
-      modelTrainingRequestSuccess: false,
-      modelTrainingOutputData: '',
-
       modelTestingRequestSuccess: false,
-      modelTestingOutputData: ''
+      modelUnetTestingOutputData: '',
+      modelResUnetTestingOutputData: '',
+      modelMMIganTestingOutputData: '',
+
+      实验预处理步骤: require('/public/image/实验预处理步骤.jpg')
     }
   },
   methods: {
@@ -139,11 +121,13 @@ export default {
       this.dataPreDisabled = e.length === 0
     },
     dataPreBtnChange(dir, e) {
-      // 数据预处理请求
+      // 数据预处理
+      // 请求成功
 
-      this.dataPreRequestSuccessAction('/tmp/data_preprocessing', e)
+      const data = '/tmp/pre_dataset'
+      this.dataPreRequestSuccessAction(data)
     },
-    dataPreRequestSuccessAction(data, e) {
+    dataPreRequestSuccessAction(data) {
       this.dataPreRequestSuccess = true
       this.dataPreOutputData = data
       this.$message({
@@ -153,29 +137,24 @@ export default {
       })
     },
 
-    modelTrainingBtnChange(dir, e) {
-      // 模型训练
-
-      this.modelTrainingSuccessAction('/tmp/model_training', e)
-    },
-    modelTrainingSuccessAction(data, e) {
-      this.modelTrainingRequestSuccess = true
-      this.modelTrainingOutputData = data
-      this.$message({
-        message: '模型训练完成',
-        type: 'success',
-        duration: 1500
-      })
-    },
-
     modelTestingBtnChange(dir, e) {
       // 模型测试
       console.log('modelTestingBtnChange')
-      this.modelTestingSuccessAction('/tmp/mode_testing')
+      // 请求成功
+
+      const data = {
+        Unet: '/tmp/unet_model_testing',
+        ResUnet: '/tmp/resunet_model_testing',
+        MMIgan: '/tmp/mmigan_model_testing'
+      }
+      this.modelTestingSuccessAction(data)
     },
-    modelTestingSuccessAction(data, e) {
+    modelTestingSuccessAction(data) {
       this.modelTestingRequestSuccess = true
-      this.modelTestingOutputData = data
+      this.modelUnetTestingOutputData = data.Unet
+      this.modelResUnetTestingOutputData = data.ResUnet
+      this.modelMMIganTestingOutputData = data.MMIgan
+
       this.$message({
         message: '模型测试完成',
         type: 'success',
@@ -215,5 +194,12 @@ export default {
   color: rgb(26, 138, 212);
   font-weight: 400;
   padding: 0 10px;
+  width: 185px;
+  display: inline-block;
+  text-align: right;
+}
+
+.data-pre-img{
+  padding: 10px 200px;
 }
 </style>
