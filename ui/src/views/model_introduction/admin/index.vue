@@ -1,30 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
-
-@xiangxiang0901
-feiquan123
-/
-auto_seg_hippocampus
-Private
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-auto_seg_hippocampus/ui/src/views/model_introduction/admin/index.vue
-@feiquan123
-feiquan123 添加本地图片
-Latest commit 1e0d7e9 yesterday
- History
- 1 contributor
-112 lines (98 sloc)  2.36 KB
-
 <template>
   <div class="introduction-editor-container">
     <github-corner class="github-corner" />
@@ -127,16 +100,3 @@ export default {
   }
 }
 </style>
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
