@@ -17,7 +17,7 @@ const data = {
 
 module.exports = [{
     // data test
-    url: '/auto_seg_hippocampus/data/test',
+    url: '/api/data/test',
     type: 'post',
     response: config => {
         const { dataPreOutPutPath } = config.body

@@ -2,21 +2,21 @@ import request from '@/utils/request'
 
 export function getRoutes() {
   return request({
-    url: '/auto_seg_hippocampus/routes',
+    url: '/api/routes',
     method: 'get'
   })
 }
 
 export function getRoles() {
   return request({
-    url: '/auto_seg_hippocampus/roles',
+    url: '/api/roles',
     method: 'get'
   })
 }
 
 export function addRole(data) {
   return request({
-    url: '/auto_seg_hippocampus/role',
+    url: '/api/role',
     method: 'post',
     data
   })
@@ -24,7 +24,7 @@ export function addRole(data) {
 
 export function updateRole(id, data) {
   return request({
-    url: `/auto_seg_hippocampus/role/${id}`,
+    url: `/api/role/${id}`,
     method: 'put',
     data
   })
@@ -32,7 +32,7 @@ export function updateRole(id, data) {
 
 export function deleteRole(id) {
   return request({
-    url: `/auto_seg_hippocampus/role/${id}`,
+    url: `/api/role/${id}`,
     method: 'delete'
   })
 }

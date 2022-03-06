@@ -23,7 +23,20 @@ module.exports = {
             warnings: false,
             errors: true
         },
-        before: require('./mock/mock-server.js')
+        headers: {
+            'Access-Control-Allow-Origin': '*', //允许所有域名访问 
+            'Access-Control-Allow-Credentials': 'true' //是否允许后续请求携带认证信息（cookies）,该值只能是true,否则不返回
+        },
+        host: '0.0.0.0',
+        proxy: {
+            '/api': {
+                target: process.env.BACKEND_URL,
+                changeOrigin: true,
+                pathRewrite: {
+                    "^/api": ""
+                }
+            },
+        },
     },
     configureWebpack: {
         // provide the app's title in webpack's name field, so that

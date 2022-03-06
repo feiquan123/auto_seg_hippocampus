@@ -2,17 +2,11 @@ const Mock = require('mockjs')
 const { param2Obj } = require('./utils')
 
 const user = require('./user')
-const role = require('./role')
-const article = require('./article')
-const search = require('./remote-search')
 const dataPre = require("./data-pre")
 const dataTest = require("./data-test")
 
 const mocks = [
     ...user,
-    ...role,
-    ...article,
-    ...search,
     ...dataPre,
     ...dataTest
 ]
