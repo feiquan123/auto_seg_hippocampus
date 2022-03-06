@@ -22,6 +22,7 @@
             @input="dataPreDirInputInput"
           />
           <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled" @click="dataPreBtnChange">开始预处理</el-button>
+          <div v-if="this.showPreLoading" v-loading="loadingPre" />
         </el-row>
 
         <el-row>
@@ -69,7 +70,14 @@
               style="width:400px; max-width:100%;"
               disabled
             />
+          </el-row>
+          <br>
+          <br>
+          <el-row>
+            <span class="span-desc">请选择模型</span>
+            <drag-select :select-change="selectChange" />
             <el-button type="primary" icon="el-icon-document" :disabled="!dataPreRequestSuccess" @click="modelTestingBtnChange">开始模型预测</el-button>
+            <div v-if="this.showTestLoading" v-loading="loadingTest" />
           </el-row>
         </div>
 
@@ -78,29 +86,9 @@
           <hr>
           <br>
           <el-row>
-            <span class="span-desc">Unet 模型预测结果</span>
+            <span class="span-desc"> {{ selectValue[0] }} 模型预测结果</span>
             <el-input
-              v-model="modelUnetTestingOutputData"
-              class="input-with-select"
-              style="width:400px; max-width:100%;"
-              disabled
-            />
-          </el-row>
-          <br>
-          <el-row>
-            <span class="span-desc">ResUnet 模型预测结果</span>
-            <el-input
-              v-model="modelResUnetTestingOutputData"
-              class="input-with-select"
-              style="width:400px; max-width:100%;"
-              disabled
-            />
-          </el-row>
-          <br>
-          <el-row>
-            <span class="span-desc">MMIgan 模型预测结果</span>
-            <el-input
-              v-model="modelMMIganTestingOutputData"
+              v-model="modelTestingOutputData"
               class="input-with-select"
               style="width:400px; max-width:100%;"
               disabled
@@ -134,26 +122,28 @@
 </template>
 
 <script>
+import DragSelect from './components/drag-select.vue'
 import { dataPre } from '@/api/data-pre'
 import { dataTest } from '@/api/data-test'
 
 export default {
   name: 'Processing',
+  components: { DragSelect },
   data() {
     return {
-      chartHeight: '400px',
-      chartWidth: '100%',
+      selectValue: ['DeepResUNet'],
 
       dataPreRequestSuccess: false,
       dataPreDir: '',
       dataPreDisabled: true,
       dataPreOutPutPath: '',
+      showPreLoading: false,
+      loadingPre: {},
 
       modelTestingRequestSuccess: false,
-      modelUnetTestingOutputData: '',
-      modelResUnetTestingOutputData: '',
-      modelMMIganTestingOutputData: '',
-
+      modelTestingOutputData: '',
+      showTestLoading: false,
+      loadingTest: {},
       实验预处理步骤: require('/public/image/实验预处理步骤.jpg')
     }
   },
@@ -163,12 +153,32 @@ export default {
     },
 
     dataPreBtnChange() {
+      this.loadingPre = this.$loading({
+        lock: true,
+        text: '数据预处理中',
+        spinner: 'el-icon-loading',
+        fullscreen: true,
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.showPreLoading = true
+
       if (this.modelTestingRequestSuccess) {
         this.modelTestingRequestSuccess = false
       }
       // 数据预处理
       dataPre(this.dataPreDir).then(res => {
         this.dataPreRequestSuccessAction(res.data)
+        this.showPreLoading = false
+        this.loadingPre.close()
+      }).catch(error => {
+        console.log(error)
+        this.$message({
+          message: '数据预处理失败',
+          type: 'error',
+          duration: 2000
+        })
+        this.showPreLoading = false
+        this.loadingPre.close()
       })
     },
     dataPreRequestSuccessAction(data) {
@@ -181,17 +191,57 @@ export default {
       })
     },
 
+    selectChange(e) {
+      this.selectValue = e
+    },
+
     modelTestingBtnChange() {
       // 模型测试
-      dataTest(this.dataPreOutPutPath).then(res => {
+      if (this.selectValue.length === 0) {
+        this.$message({
+          message: '模型类型不能为空',
+          type: 'error',
+          duration: 1500
+        })
+        return
+      }
+
+      if (this.selectValue.length > 1) {
+        this.$message({
+          message: '模型类型同时只能选一个',
+          type: 'error',
+          duration: 1500
+        })
+        return
+      }
+
+      this.loadingTest = this.$loading({
+        lock: true,
+        text: '模型测试中',
+        spinner: 'el-icon-loading',
+        fullscreen: true,
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.showTestLoading = true
+
+      dataTest(this.dataPreOutPutPath, this.selectValue[0]).then(res => {
         this.modelTestingSuccessAction(res.data)
+        this.showTestLoading = false
+        this.loadingTest.close()
+      }).catch(error => {
+        console.log(error)
+        this.$message({
+          message: '模型测试失败',
+          type: 'error',
+          duration: 2000
+        })
+        this.showTestLoading = false
+        this.loadingTest.close()
       })
     },
     modelTestingSuccessAction(data) {
       this.modelTestingRequestSuccess = true
-      this.modelUnetTestingOutputData = data.Unet.path
-      this.modelResUnetTestingOutputData = data.ResUnet.path
-      this.modelMMIganTestingOutputData = data.MMIgan.path
+      this.modelTestingOutputData = data.dataTestOutputPath
 
       this.$message({
         message: '模型测试完成',

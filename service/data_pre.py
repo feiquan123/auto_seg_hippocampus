@@ -16,7 +16,8 @@ LGG_PATH = "LGG"
 IMAGE_PATH = "image"
 MASK_PATH = "mask"
 
-output_test_root = "npy"
+output_data_pre_root = "npy"
+output_data_test_root = "output"
 
 flair_name = "_flair.nii.gz"
 t1_name = "_t1.nii.gz"
@@ -54,9 +55,13 @@ def data_pre(dataPrePath:str)->dict:
 		return ERROR_LGG_DATA_ARRIVE_MAX.__dict__()
 
 	# 清空上次预处理后的数据
-	output = os.path.join(dataPrePath,output_test_root)
+	output = os.path.join(dataPrePath,output_data_pre_root)
 	if os.path.exists(output):
 		shutil.rmtree(output,ignore_errors=True)
+	# 清空上次测试的数据
+	output_test = os.path.join(dataPrePath,output_data_test_root)
+	if os.path.exists(output_test):
+		shutil.rmtree(output_test,ignore_errors=True)
 
 	# 创建本次预处理需要输出的文件路径
 	output_image_path = os.path.join(output,IMAGE_PATH)

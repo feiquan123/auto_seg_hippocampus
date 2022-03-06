@@ -2,7 +2,7 @@ from flask import Flask,request,make_response
 from error_code import ERROR_REQUEST_ARGS
 from user import user_login,user_info,user_logout
 from data_pre import data_pre
-from data_test import data_test
+from data_test import data_test,Model_Calculate_Mode,Model_GetPicture_Mode
 import json
 
 app = Flask(__name__)
@@ -62,8 +62,17 @@ def dataTest():
 	dataPreOutPutPath = data.get('dataPreOutPutPath',None)
 	if dataPreOutPutPath is None:
 		return make_response(json.dumps(ERROR_REQUEST_ARGS.__dict__()))
+	
+	arch = data.get('arch',None)
+	if arch is None:
+		return make_response(json.dumps(ERROR_REQUEST_ARGS.__dict__()))
 
-	resp = make_response(json.dumps(data_test(dataPreOutPutPath)))
+	resp = make_response(json.dumps(data_test(
+		dataPreOutPutPath=dataPreOutPutPath,
+		isCUDA= False,
+		mode=Model_GetPicture_Mode,
+		arch=arch,
+	)))
 	return resp
 
 	

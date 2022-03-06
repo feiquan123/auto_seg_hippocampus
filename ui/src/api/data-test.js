@@ -1,11 +1,12 @@
 import request from '@/utils/request'
 
-export function dataTest(data) {
+export function dataTest(dataPreOutPutPath, arch) {
   return request({
     url: '/api/data/test',
     method: 'post',
     data: {
-      dataPreOutPutPath: data
+      dataPreOutPutPath: dataPreOutPutPath,
+      arch: arch
     }
   })
 }

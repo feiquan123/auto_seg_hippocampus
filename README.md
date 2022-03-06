@@ -73,3 +73,11 @@ npm run lint
 # 代码格式检查并自动修复
 npm run lint -- --fix
 ```
+
+## 模型下载
+```
+模型路径：auto_seg_hippocampus/service/models/hublock1_DeepResUNet_woDS
+
+百度网盘下载：
+链接: https://pan.baidu.com/s/1pyzrks0IhLT47FZKUATQVQ?pwd=62mq 提取码: 62mq 
+```
