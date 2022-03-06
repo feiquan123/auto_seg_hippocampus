@@ -80,7 +80,22 @@
           </el-row>
           <br>
           <div class="chart-container">
-            <model-testing-dice-chart :height="chartHeight" :width="chartWidth" :chart-data="chartData" />
+            <table class="table">
+              <caption><h4>不同分割方法对比分析（dice系数）</h4></caption>
+              <th>方法</th><th>WT</th><th>TC</th><th>ET</th>
+              <tr>
+                <td>U-Net</td><td>0.80</td><td>0.63</td><td>0.60</td>
+              </tr>
+              <tr>
+                <td>SegAN</td><td>0.85</td><td>0.70</td><td>0.66</td>
+              </tr>
+              <tr>
+                <td>Resnet</td><td>0.87</td><td>0.74</td><td>0.78</td>
+              </tr>
+              <tr>
+                <td>本文方法</td><td>0.84</td><td>0.86</td><td>0.78</td>
+              </tr>
+            </table>
           </div>
         </div>
       </el-tab-pane>
@@ -91,21 +106,15 @@
 </template>
 
 <script>
-import ModelTestingDiceChart from './components/charts/ModelTestingDiceChart.vue'
-
 import { dataPre } from '@/api/data-pre'
 import { dataTest } from '@/api/data-test'
 
 export default {
   name: 'Processing',
-  components: {
-    ModelTestingDiceChart
-  },
   data() {
     return {
       chartHeight: '400px',
       chartWidth: '100%',
-      chartData: {},
 
       dataPreRequestSuccess: false,
       dataPreDir: '',
@@ -126,6 +135,9 @@ export default {
     },
 
     dataPreBtnChange() {
+      if (this.modelTestingRequestSuccess) {
+        this.modelTestingRequestSuccess = false
+      }
       // 数据预处理
       dataPre(this.dataPreDir).then(res => {
         this.dataPreRequestSuccessAction(res.data)
@@ -152,7 +164,6 @@ export default {
       this.modelUnetTestingOutputData = data.Unet.path
       this.modelResUnetTestingOutputData = data.ResUnet.path
       this.modelMMIganTestingOutputData = data.MMIgan.path
-      this.chartData = data
 
       this.$message({
         message: '模型测试完成',
@@ -201,4 +212,31 @@ export default {
 .data-pre-img{
   padding: 10px 200px;
 }
+
+.table {
+  font-family: verdana,arial,sans-serif;
+  font-size:11px;
+  color:#131441;
+  border-width: 1px;
+  border-color: #666666;
+  border-collapse: collapse;
+  width: 50%;
+  text-align: center;
+
+  th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #0a205e;
+    background-color: #74b5cf;
+  }
+  td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #d2f0f7;
+  }
+}
+
 </style>
