@@ -107,3 +107,8 @@ dist
 # python venv
 venv
 /**/__pycache__
+
+# data
+/**/data
+/**/tmp
+/**/testdata

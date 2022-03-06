@@ -23,6 +23,34 @@
           />
           <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled" @click="dataPreBtnChange">开始预处理</el-button>
         </el-row>
+
+        <el-row>
+          <p>
+            <pre>注：测试数据中的文件夹结构如下【2个HGG病例，1个LGG病例】，其中 HGG、LGG 文件夹下最多只允许放 5 个病例
+  .
+├── HGG
+│   ├── BraTS19_CBICA_AAB_1
+│   │   ├── BraTS19_CBICA_AAB_1_flair.nii.gz
+│   │   ├── BraTS19_CBICA_AAB_1_seg.nii.gz
+│   │   ├── BraTS19_CBICA_AAB_1_t1.nii.gz
+│   │   ├── BraTS19_CBICA_AAB_1_t1ce.nii.gz
+│   │   └── BraTS19_CBICA_AAB_1_t2.nii.gz
+│   └── BraTS19_CBICA_AAL_1
+│       ├── BraTS19_CBICA_AAL_1_flair.nii.gz
+│       ├── BraTS19_CBICA_AAL_1_seg.nii.gz
+│       ├── BraTS19_CBICA_AAL_1_t1.nii.gz
+│       ├── BraTS19_CBICA_AAL_1_t1ce.nii.gz
+│       └── BraTS19_CBICA_AAL_1_t2.nii.gz
+└── LGG
+    └── BraTS19_TCIA09_254_1
+        ├── BraTS19_TCIA09_254_1_flair.nii.gz
+        ├── BraTS19_TCIA09_254_1_seg.nii.gz
+        ├── BraTS19_TCIA09_254_1_t1.nii.gz
+        ├── BraTS19_TCIA09_254_1_t1ce.nii.gz
+        └── BraTS19_TCIA09_254_1_t2.nii.gz
+</pre>
+          </p>
+        </el-row>
       </el-tab-pane>
 
       <el-tab-pane label="模型预测">
