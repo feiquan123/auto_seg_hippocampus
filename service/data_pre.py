@@ -1,7 +1,6 @@
 import os
 import shutil
 
-from sympy import re
 import SimpleITK as sitk
 import numpy as np
 
