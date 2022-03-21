@@ -33,7 +33,7 @@
           <router-link target="_blank" to="/pdf/download">
             <el-dropdown-item>论文下载</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
+          <a target="_blank" href="https://github.com/feiquan123/auto_seg_hippocampus">
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
