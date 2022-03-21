@@ -25,33 +25,16 @@
           <div v-if="this.showPreLoading" v-loading="loadingPre" />
         </el-row>
 
-        <el-row>
-          <p>
-            <pre>注：测试数据中的文件夹结构如下【2个HGG病例，1个LGG病例】，其中 HGG、LGG 文件夹下最多只允许放 5 个病例
-  .
-├── HGG
-│   ├── BraTS19_CBICA_AAB_1
-│   │   ├── BraTS19_CBICA_AAB_1_flair.nii.gz
-│   │   ├── BraTS19_CBICA_AAB_1_seg.nii.gz
-│   │   ├── BraTS19_CBICA_AAB_1_t1.nii.gz
-│   │   ├── BraTS19_CBICA_AAB_1_t1ce.nii.gz
-│   │   └── BraTS19_CBICA_AAB_1_t2.nii.gz
-│   └── BraTS19_CBICA_AAL_1
-│       ├── BraTS19_CBICA_AAL_1_flair.nii.gz
-│       ├── BraTS19_CBICA_AAL_1_seg.nii.gz
-│       ├── BraTS19_CBICA_AAL_1_t1.nii.gz
-│       ├── BraTS19_CBICA_AAL_1_t1ce.nii.gz
-│       └── BraTS19_CBICA_AAL_1_t2.nii.gz
-└── LGG
-    └── BraTS19_TCIA09_254_1
-        ├── BraTS19_TCIA09_254_1_flair.nii.gz
-        ├── BraTS19_TCIA09_254_1_seg.nii.gz
-        ├── BraTS19_TCIA09_254_1_t1.nii.gz
-        ├── BraTS19_TCIA09_254_1_t1ce.nii.gz
-        └── BraTS19_TCIA09_254_1_t2.nii.gz
-</pre>
-          </p>
-        </el-row>
+        <el-button type="primary" icon="el-icon-document" @click="showDescClick">展示描述</el-button>
+        <div v-if="this.showDesc">
+          <el-row>
+            <div>{{ showDescCount }}</div>
+            <p>
+              <pre>注 </pre>
+            </p>
+          </el-row>
+        </div>
+
       </el-tab-pane>
 
       <el-tab-pane label="模型预测">
@@ -125,6 +108,7 @@
 import DragSelect from './components/drag-select.vue'
 import { dataPre } from '@/api/data-pre'
 import { dataTest } from '@/api/data-test'
+import { showDesc } from '@/api/show-desc'
 
 export default {
   name: 'Processing',
@@ -144,10 +128,19 @@ export default {
       modelTestingOutputData: '',
       showTestLoading: false,
       loadingTest: {},
-      实验预处理步骤: require('/public/image/实验预处理步骤.jpg')
+      实验预处理步骤: require('/public/image/实验预处理步骤.jpg'),
+
+      showDesc: false,
+      showDescCount: 0
     }
   },
   methods: {
+    showDescClick(e) {
+      showDesc(this.showDescCount).then(res => {
+        this.showDescCount = res.data.count
+        this.showDesc = true
+      })
+    },
     dataPreDirInputInput(e) {
       this.dataPreDisabled = e.length === 0
     },

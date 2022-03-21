@@ -1,8 +1,11 @@
+from crypt import methods
+import imp
 from flask import Flask,request,make_response
 from error_code import ERROR_REQUEST_ARGS
 from user import user_login,user_info,user_logout
 from data_pre import data_pre
 from data_test import data_test,Model_Calculate_Mode,Model_GetPicture_Mode
+from show_desc import show_desc
 import json
 
 app = Flask(__name__)
@@ -75,8 +78,15 @@ def dataTest():
 	)))
 	return resp
 
-	
+@app.route('/show_desc',methods=['POST'])
+def showDesc():
+	data = 	request.get_json()
+	if data is None:
+		return make_response(json.dumps(ERROR_REQUEST_ARGS.__dict__()))
 
+	resp = make_response(json.dumps(show_desc(data['count'])))
+	return resp
+	
 
 if __name__ == "__main__":
 	app.debug=True
