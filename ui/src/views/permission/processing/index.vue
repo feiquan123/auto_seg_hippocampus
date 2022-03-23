@@ -26,6 +26,11 @@
         </el-row>
 
         <el-button type="primary" icon="el-icon-document" @click="showDescClick">展示描述</el-button>
+        <el-button type="primary" icon="el-icon-document" @click="showPicClick">{{ picName }}</el-button>
+
+        <img v-if="picHidden" :src="实验预处理步骤" alt="实验预处理步骤" class="data-pre-img">
+        <img v-if="!picHidden" :src="分割模型" alt="分割模型" class="data-pre-img">
+
         <div v-if="this.showDesc">
           <el-row>
             <div>{{ showDescCount }}</div>
@@ -129,12 +134,23 @@ export default {
       showTestLoading: false,
       loadingTest: {},
       实验预处理步骤: require('/public/image/实验预处理步骤.jpg'),
+      分割模型: require('/public/image/分割模型.png'),
 
       showDesc: false,
-      showDescCount: 0
+      showDescCount: 0,
+      picHidden: true,
+      picName: '实验预处理步骤'
     }
   },
   methods: {
+    showPicClick(e) {
+      this.picHidden = !this.picHidden
+      if (this.picHidden) {
+        this.picName = '实验预处理步骤'
+      } else {
+        this.picName = '分割模型'
+      }
+    },
     showDescClick(e) {
       showDesc(this.showDescCount).then(res => {
         this.showDescCount = res.data.count
