@@ -5,7 +5,6 @@
         <el-row>
           <p>
             本实验采用公开的brats18和brats19数据集，将brats18数据按照8:2的比例分开分别用于模型的训练和验证，用brats19数据中额外增加的50例数据用于模型的测试。<br>
-            <img :src="实验预处理步骤" alt="实验预处理步骤" class="data-pre-img">
           </p>
           <div />
         </el-row>
@@ -25,18 +24,14 @@
           <div v-if="this.showPreLoading" v-loading="loadingPre" />
         </el-row>
 
-        <el-button type="primary" icon="el-icon-document" @click="showDescClick">展示描述</el-button>
-        <el-button type="primary" icon="el-icon-document" @click="showPicClick">{{ picName }}</el-button>
-
-        <img v-if="picHidden" :src="实验预处理步骤" alt="实验预处理步骤" class="data-pre-img">
-        <img v-if="!picHidden" :src="分割模型" alt="分割模型" class="data-pre-img">
-
-        <div v-if="this.showDesc">
+        <div v-if="this.dataPreRequestSuccess">
           <el-row>
-            <div>{{ showDescCount }}</div>
+            <el-button type="primary" icon="el-icon-document" @click="showPicClick">{{ picName }}</el-button>
             <p>
-              <pre>注 </pre>
+              <pre>注: ŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒŒ </pre>
             </p>
+            <img v-if="picHidden" :src="实验预处理步骤" alt="实验预处理步骤" class="data-pre-img">
+            <img v-if="!picHidden" :src="分割模型" alt="分割模型" class="data-pre-img">
           </el-row>
         </div>
 
@@ -113,7 +108,6 @@
 import DragSelect from './components/drag-select.vue'
 import { dataPre } from '@/api/data-pre'
 import { dataTest } from '@/api/data-test'
-import { showDesc } from '@/api/show-desc'
 
 export default {
   name: 'Processing',
@@ -136,8 +130,6 @@ export default {
       实验预处理步骤: require('/public/image/实验预处理步骤.jpg'),
       分割模型: require('/public/image/分割模型.png'),
 
-      showDesc: false,
-      showDescCount: 0,
       picHidden: true,
       picName: '实验预处理步骤'
     }
@@ -150,12 +142,6 @@ export default {
       } else {
         this.picName = '分割模型'
       }
-    },
-    showDescClick(e) {
-      showDesc(this.showDescCount).then(res => {
-        this.showDescCount = res.data.count
-        this.showDesc = true
-      })
     },
     dataPreDirInputInput(e) {
       this.dataPreDisabled = e.length === 0
