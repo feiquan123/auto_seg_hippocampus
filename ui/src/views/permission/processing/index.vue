@@ -1,75 +1,128 @@
 <template>
   <div class="data-preprocessing-container">
     <el-tabs type="border-card" style="width:100%;">
-      <el-tab-pane label="数据预处理">
-        <el-row>
-          <p>
-            本实验采用公开的brats18和brats19数据集，将brats18数据按照8:2的比例分开分别用于模型的训练和验证，用brats19数据中额外增加的50例数据用于模型的测试。<br>
-            <img :src="实验预处理步骤" alt="实验预处理步骤" class="data-pre-img">
-          </p>
-          <div />
-        </el-row>
-
-        <el-row>
-          <span class="span-desc"> 预处理文件夹路径 </span>
-          <el-input
-            ref="data_pre_dir"
-            v-model="dataPreDir"
-            type="text"
-            placeholder="请粘贴绝对路径"
-            class="input-with-select"
-            style="width:400px; max-width:100%;"
-            @input="dataPreDirInputInput"
-          />
-          <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled" @click="dataPreBtnChange">开始预处理</el-button>
-          <div v-if="this.showPreLoading" v-loading="loadingPre" />
-        </el-row>
-
+      <el-tab-pane label="数据预处理说明">
         <el-row>
           <p>
             <pre>注：测试数据中的文件夹结构如下【2个HGG病例，1个LGG病例】，其中 HGG、LGG 文件夹下最多只允许放 5 个病例
-  .
-├── HGG
-│   ├── BraTS19_CBICA_AAB_1
-│   │   ├── BraTS19_CBICA_AAB_1_flair.nii.gz
-│   │   ├── BraTS19_CBICA_AAB_1_seg.nii.gz
-│   │   ├── BraTS19_CBICA_AAB_1_t1.nii.gz
-│   │   ├── BraTS19_CBICA_AAB_1_t1ce.nii.gz
-│   │   └── BraTS19_CBICA_AAB_1_t2.nii.gz
-│   └── BraTS19_CBICA_AAL_1
-│       ├── BraTS19_CBICA_AAL_1_flair.nii.gz
-│       ├── BraTS19_CBICA_AAL_1_seg.nii.gz
-│       ├── BraTS19_CBICA_AAL_1_t1.nii.gz
-│       ├── BraTS19_CBICA_AAL_1_t1ce.nii.gz
-│       └── BraTS19_CBICA_AAL_1_t2.nii.gz
-└── LGG
-    └── BraTS19_TCIA09_254_1
-        ├── BraTS19_TCIA09_254_1_flair.nii.gz
-        ├── BraTS19_TCIA09_254_1_seg.nii.gz
-        ├── BraTS19_TCIA09_254_1_t1.nii.gz
-        ├── BraTS19_TCIA09_254_1_t1ce.nii.gz
-        └── BraTS19_TCIA09_254_1_t2.nii.gz
-</pre>
+        .
+      ├── HGG
+      │   ├── BraTS19_CBICA_AAB_1
+      │   │   ├── BraTS19_CBICA_AAB_1_flair.nii.gz
+      │   │   ├── BraTS19_CBICA_AAB_1_seg.nii.gz
+      │   │   ├── BraTS19_CBICA_AAB_1_t1.nii.gz
+      │   │   ├── BraTS19_CBICA_AAB_1_t1ce.nii.gz
+      │   │   └── BraTS19_CBICA_AAB_1_t2.nii.gz
+      │   └── BraTS19_CBICA_AAL_1
+      │       ├── BraTS19_CBICA_AAL_1_flair.nii.gz
+      │       ├── BraTS19_CBICA_AAL_1_seg.nii.gz
+      │       ├── BraTS19_CBICA_AAL_1_t1.nii.gz
+      │       ├── BraTS19_CBICA_AAL_1_t1ce.nii.gz
+      │       └── BraTS19_CBICA_AAL_1_t2.nii.gz
+      └── LGG
+          └── BraTS19_TCIA09_254_1
+              ├── BraTS19_TCIA09_254_1_flair.nii.gz
+              ├── BraTS19_TCIA09_254_1_seg.nii.gz
+              ├── BraTS19_TCIA09_254_1_t1.nii.gz
+              ├── BraTS19_TCIA09_254_1_t1ce.nii.gz
+              └── BraTS19_TCIA09_254_1_t2.nii.gz
+                  </pre>
           </p>
         </el-row>
       </el-tab-pane>
 
-      <el-tab-pane label="模型预测">
-        <el-row>
-          <p>
-            首先将原始brats数据进行标准化、切片裁剪等预处理，然后输入到GAN中得到分割结果，通过评价指标来分析实验结果。本章主要对GAN中的生成模型进行改进从而提高分割精确度。
-          </p>
-        </el-row>
+      <el-tab-pane label="标准化/切片处理">
+        <div class="left1">
+          <span>标准化</span> <br><br>
+          <el-row>
+            <el-input ref="data_pre_dir" v-model="dataPreDir1" type="text" placeholder="请粘贴绝对路径" class="input-with-select" style="width:400px; max-width:100%;" @input="dataPreDirInputInput" />
+            <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled1" @click="dataPreBtnChange">开始数据标准化</el-button>
+            <div v-if="this.showPreLoading" v-loading="loadingPre" />
+          </el-row>
+        </div>
+        <div class="right1">
+          <span>切片</span>
+          <br>
+          <br>
+          <el-row>
+            <el-input v-model="dataPreOutPutPath2" class="input-with-select" style="width:400px; max-width:100%;" disabled />
+            <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled2" @click="dataPreBtnChange2">开始数据切片</el-button>
+            <div v-if="this.showPreLoading" v-loading="loadingPre" />
+          </el-row>
+        </div>
+        <div v-if="this.secondSuccess">
+          <div v-if="this.dataPreRequestSuccess">
+            <el-row>
+              <el-button type="primary" icon="el-icon-document" @click="showPicClick">{{ picName }}</el-button>
+              <img v-if="picHidden" :src="标准化" alt="标准化" class="data-pre-img">
+              <img v-if="!picHidden" :src="切片" alt="切片" class="data-pre-img">
+            </el-row>
+          </div>
+        </div>
+      </el-tab-pane>
 
+      <el-tab-pane label="裁剪">
+        <div class="left1">
+          <span>Canny边缘检测</span>
+          <br>
+          <br>
+          <!-- <div v-if="this.dataPreRequestSuccess"></div> -->
+          <el-row>
+            <el-input v-model="dataPreOutPutPath3" class="input-with-select" style="width:400px; max-width:100%;" disabled />
+            <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled3" @click="dataPreBtnChange3">开始数据边缘检测</el-button>
+            <div v-if="this.showTestLoading" v-loading="loadingTest" />
+          </el-row>
+          <br>
+          <br>
+        </div>
+
+        <div class="right1">
+          <span>确定最小裁剪框</span>
+          <br>
+          <br>
+          <!-- <div v-if="this.dataPreRequestSuccess"></div> -->
+          <el-row>
+            <el-input v-model="dataPreOutPutPath4" class="input-with-select" style="width:400px; max-width:100%;" disabled />
+            <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled4" @click="dataPreBtnChange4">开始确定最小裁剪框</el-button>
+            <div v-if="this.showTestLoading" v-loading="loadingTest" />
+          </el-row>
+          <br>
+          <br>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div v-if="this.fourSuccess">
+          <div v-if="this.dataPreRequestSuccess">
+            <el-row>
+              <el-button type="primary" icon="el-icon-document" @click="showPicClick2">{{ picName2 }}</el-button>
+              <img v-if="picHidden2" :src="边缘检测" alt="边缘检测" class="data-pre-img">
+              <img v-if="!picHidden2" :src="裁剪框" alt="裁剪框" class="data-pre-img">
+            </el-row>
+          </div>
+        </div>
+      </el-tab-pane>
+
+      <el-tab-pane label="通道连接">
+        <span>通道连接</span>
+        <br>
+        <br>
+        <!-- <div v-if="this.dataPreRequestSuccess"></div> -->
+        <el-row>
+          <span class="span-desc"> 数据存放路径 </span>
+          <el-input v-model="dataPreOutPutPath5" class="input-with-select" style="width:400px; max-width:100%;" disabled />
+          <el-button type="primary" icon="el-icon-document" :disabled="dataPreDisabled5" @click="dataPreBtnChange5">开始数据连接</el-button>
+          <div v-if="this.showTestLoading" v-loading="loadingTest" />
+        </el-row>
+        <br>
+        <br>
+      </el-tab-pane>
+
+      <el-tab-pane label="模型预测">
         <div v-if="this.dataPreRequestSuccess">
           <el-row>
             <span class="span-desc">数据预处理结果集</span>
-            <el-input
-              v-model="dataPreOutPutPath"
-              class="input-with-select"
-              style="width:400px; max-width:100%;"
-              disabled
-            />
+            <el-input v-model="dataPreOutPutPath" class="input-with-select" style="width:400px; max-width:100%;" disabled />
           </el-row>
           <br>
           <br>
@@ -132,11 +185,20 @@ export default {
   data() {
     return {
       selectValue: ['DeepResUNet'],
-
+      fourSuccess: false,
+      secondSuccess: false,
       dataPreRequestSuccess: false,
-      dataPreDir: '',
-      dataPreDisabled: true,
+      dataPreDir1: '',
+      dataPreDisabled1: true,
+      dataPreDisabled2: true,
+      dataPreDisabled3: true,
+      dataPreDisabled4: true,
+      dataPreDisabled5: true,
       dataPreOutPutPath: '',
+      dataPreOutPutPath2: '',
+      dataPreOutPutPath3: '',
+      dataPreOutPutPath4: '',
+      dataPreOutPutPath5: '',
       showPreLoading: false,
       loadingPre: {},
 
@@ -144,12 +206,35 @@ export default {
       modelTestingOutputData: '',
       showTestLoading: false,
       loadingTest: {},
-      实验预处理步骤: require('/public/image/实验预处理步骤.jpg')
+      标准化: require('@/assets/标准化.png'),
+      切片: require('@/assets/切片.png'),
+      picHidden: true,
+      picName: '标准化结果',
+      边缘检测: require('@/assets/边缘检测.png'),
+      裁剪框: require('@/assets/裁剪框.png'),
+      picName2: '边缘检测结果',
+      picHidden2: true
     }
   },
   methods: {
+    showPicClick(e) {
+      this.picHidden = !this.picHidden
+      if (this.picHidden) {
+        this.picName = '标准化结果'
+      } else {
+        this.picName = '切片结果'
+      }
+    },
+    showPicClick2(e) {
+      this.picHidden2 = !this.picHidden2
+      if (this.picHidden2) {
+        this.picName2 = '边缘检测结果'
+      } else {
+        this.picName2 = '确定最小裁剪框结果'
+      }
+    },
     dataPreDirInputInput(e) {
-      this.dataPreDisabled = e.length === 0
+      this.dataPreDisabled1 = e.length === 0
     },
 
     dataPreBtnChange() {
@@ -161,15 +246,14 @@ export default {
         background: 'rgba(0, 0, 0, 0.7)'
       })
       this.showPreLoading = true
-
-      if (this.modelTestingRequestSuccess) {
-        this.modelTestingRequestSuccess = false
-      }
       // 数据预处理
-      dataPre(this.dataPreDir).then(res => {
+      dataPre(this.dataPreDir1).then(res => {
         this.dataPreRequestSuccessAction(res.data)
         this.showPreLoading = false
         this.loadingPre.close()
+        this.dataPreOutPutPath2 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/BiaoZhun'
+        this.dataPreDisabled2 = false
+        this.PicNoDisplay1 = false
       }).catch(error => {
         console.log(error)
         this.$message({
@@ -190,9 +274,118 @@ export default {
         duration: 1500
       })
     },
+    dataPreBtnChange2() {
+      this.loadingPre = this.$loading({
+        lock: true,
+        text: '数据预处理中',
+        spinner: 'el-icon-loading',
+        fullscreen: true,
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.showPreLoading = true
+      // 数据预处理
+      dataPre(this.dataPreOutPutPath2).then(res => {
+        this.dataPreRequestSuccessAction(res.data)
+        this.showPreLoading = false
+        this.loadingPre.close()
+        this.dataPreOutPutPath3 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/QiePian'
+        this.dataPreDisabled3 = false
+        this.secondSuccess = true
+      }).catch(error => {
+        console.log(error)
+        this.$message({
+          message: '数据预处理失败',
+          type: 'error',
+          duration: 2000
+        })
+        this.showPreLoading = false
+        this.loadingPre.close()
+      })
+    },
 
-    selectChange(e) {
-      this.selectValue = e
+    dataPreBtnChange3() {
+      this.loadingPre = this.$loading({
+        lock: true,
+        text: '数据预处理中',
+        spinner: 'el-icon-loading',
+        fullscreen: true,
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.showPreLoading = true
+
+      // 数据预处理
+      dataPre(this.dataPreOutPutPath3).then(res => {
+        this.dataPreRequestSuccessAction(res.data)
+        this.showPreLoading = false
+        this.loadingPre.close()
+        this.dataPreOutPutPath4 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/BianYuanChecked'
+        this.dataPreDisabled4 = false
+      }).catch(error => {
+        console.log(error)
+        this.$message({
+          message: '数据预处理失败',
+          type: 'error',
+          duration: 2000
+        })
+        this.showPreLoading = false
+        this.loadingPre.close()
+      })
+    },
+
+    dataPreBtnChange4() {
+      this.loadingPre = this.$loading({
+        lock: true,
+        text: '数据预处理中',
+        spinner: 'el-icon-loading',
+        fullscreen: true,
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.showPreLoading = true
+      // 数据预处理
+      dataPre(this.dataPreOutPutPath4).then(res => {
+        this.dataPreRequestSuccessAction(res.data)
+        this.showPreLoading = false
+        this.loadingPre.close()
+        this.dataPreOutPutPath5 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/IsRect'
+        this.dataPreDisabled5 = false
+        this.fourSuccess = true
+      }).catch(error => {
+        console.log(error)
+        this.$message({
+          message: '数据预处理失败',
+          type: 'error',
+          duration: 2000
+        })
+        this.showPreLoading = false
+        this.loadingPre.close()
+      })
+    },
+
+    dataPreBtnChange5() {
+      this.loadingPre = this.$loading({
+        lock: true,
+        text: '数据预处理中',
+        spinner: 'el-icon-loading',
+        fullscreen: true,
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.showPreLoading = true
+
+      // 数据预处理
+      dataPre(this.dataPreOutPutPath5).then(res => {
+        this.dataPreRequestSuccessAction(res.data)
+        this.showPreLoading = false
+        this.loadingPre.close()
+      }).catch(error => {
+        console.log(error)
+        this.$message({
+          message: '数据预处理失败',
+          type: 'error',
+          duration: 2000
+        })
+        this.showPreLoading = false
+        this.loadingPre.close()
+      })
     },
 
     modelTestingBtnChange() {
@@ -223,6 +416,7 @@ export default {
         background: 'rgba(0, 0, 0, 0.7)'
       })
       this.showTestLoading = true
+      this.dataCannyRequestSuccess = true
 
       dataTest(this.dataPreOutPutPath, this.selectValue[0]).then(res => {
         this.modelTestingSuccessAction(res.data)
@@ -253,7 +447,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang= "scss" scoped>
 .data-preprocessing-container {
   margin: 50px;
 
@@ -293,8 +487,8 @@ export default {
 
 .table {
   font-family: verdana,arial,sans-serif;
-  font-size:11px;
-  color:#131441;
+  font-size: 11px;
+  color: #131441;
   border-width: 1px;
   border-color: #666666;
   border-collapse: collapse;
@@ -315,6 +509,16 @@ export default {
     border-color: #666666;
     background-color: #d2f0f7;
   }
+}
+.left1 {
+color: rgb(26, 138, 212);
+width: 50%;
+display: inline-block;
+}
+.right1 {
+color: rgb(26, 212, 119);
+width: 50%;
+display: inline-block;
 }
 
 </style>

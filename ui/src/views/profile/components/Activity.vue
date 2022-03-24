@@ -3,16 +3,16 @@
     <div class="post">
       <div class="user-block">
         <img class="img-circle" :src="'https://wpimg.wallstcn.com/fb57f689-e1ab-443c-af12-8d4066e202e2.jpg'+avatarPrefix">
-        <span class="username">文迪</span>
-        <span class="description">前沿分子生物学技术(9) Science | 新方法揭示细胞内蛋白质超微结构 2022-03-10 17:32</span>
+        <span class="username">研一</span>
+        <span class="description">如何确定自己的研究方向</span>
       </div>
       <p>
-        近日，由来自霍华德·休斯医学研究所（The Howard Hughes Medical Institute, HHMI）Janelia实验室的Harald Hess领导的小组在Science上发表了题为‘Correlativethree-dimensional super-resolution and block-face electron microscopy of wholevitreously frozen cells’的文章。研究者们结合使用低温超分辨荧光显微镜和聚焦离子束扫描电子显微镜（FIB-SEM）来观察整个细胞的蛋白质超微结构的三维关系。两种成像方式的融合使得能够在拥挤的细胞内环境中对形态复杂的结构进行识别和三维分割。
+        研一的生活就是适应陌生的环境，适应生活方式的不同，上课不是主要，研究才是重点。每天三分之一的时间是在实验室度过。完成老师交代的任务，翻看近三年的国内外研究现状。在此过程了解自己感兴趣的研究内容是什么，确定它的研究意义，发现研究中存在的不足，因为这是你创新的来源。
       </p>
       <div class="user-images">
-        <el-carousel :interval="6000" type="card" height="220px">
-          <el-carousel-item v-for="item in carouselImages" :key="item">
-            <img :src="item+carouselPrefix" class="image">
+        <el-carousel ref="carousel" :interval="6000" type="card" height="220px" class="lun_imgs">
+          <el-carousel-item v-for="item in imgs" :key="item.url" class="lun_img">
+            <img :src="item.url" width="100%">
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -27,17 +27,13 @@
     <div class="post">
       <div class="user-block">
         <img class="img-circle" :src="'http://www.qbitai.com/wp-content/uploads/2019/06/200-100x100.jpg'+avatarPrefix">
-        <span class="username text-muted">白交</span>
-        <span class="description">小分子3D结构被AI整明白了 2022-02-23 13:28:30
+        <span class="username text-muted">研二</span>
+        <span class="description">如何准备开题
         </span>
       </div>
       <p>
-        此次百度聚焦的研究，是小分子化合物性质预测。
-        简单来说，通过小分子结构来预测其性质，帮助药物研发的早期探索，从而解决该领域成本高、时间长、成功率低等难题。
-        早在2018年，百度就正式启动了计算生物方向的研究。
-        著名的RNA二级结构开源算法LinearFold，将新冠预测从原来的55分钟提速至27秒（接近120倍），就是百度的研究成果之一。
-        2020年12月，百度正式将自己研究的一系列生物计算相关技术进行了集成，发布了螺旋桨（PaddleHelix）。
-        这是一个囊括了各种各样“AI+计算生物”开源工具的生物计算平台，基于百度飞桨框架开发，可以被用于药物研发、疫苗设计和精准医疗等领域。
+        继续文献阅读，这次是精读，在每读一篇文献，搞清楚它解决的问题是什么，再将它所说的复现。在复现过程中，可以在原有的基础上进行增删改操作。记录并保留每次实验的结果。
+        搞清楚是什么烟瘾导致实验结果不同。那么你研究的创新点就有了。同时，理论和实验也都有了。这时可以开题。
       </p>
       <ul class="list-inline">
         <li>
@@ -57,11 +53,12 @@
     <div class="post">
       <div class="user-block">
         <img class="img-circle" :src="'http://upload.idcquan.com/2019/0320/1553047920613.jpg'">
-        <span class="username text-muted">孙雨</span>
-        <span class="description">医学AI如何从前沿技术到临床应用?  2022-02-20 10:51</span>
+        <span class="username text-muted">研三</span>
+        <span class="description">如何找工作和准备毕业</span>
       </div>
       <p>
-        医学人工智能可加速药物从研发向临床转化。一种新药从研发到上市至少经历10——15年的时间，平均成本26亿美元。其中，药物研发的时间成本高达11.6亿美元。人工智能在药物研发上能够应用于新药发现阶段与临床实验阶段，在靶点筛选、药物发掘、药物优化、服药依从性管理、药物晶型预测等环节。借助人工智能将大幅缩短新药的研发时间，节省大量人工成本，提高新药研发的效率。
+        找与计算机相关工作的人，研二下学期开始需要在相关网站或其他地方开始刷题，找一种自己喜欢的语言写代码，找一份简历模板，发现自己的不足，在研二下弥补自己的不足。
+        研三上开始投简历找工作。再尔开始准备自己的大论文。总结自己研一和研二自己研究的东西。
       </p>
       <ul class="list-inline">
         <li>
@@ -88,11 +85,11 @@ const carouselPrefix = '?imageView2/2/h/440'
 export default {
   data() {
     return {
-      carouselImages: [
-        'https://img1.17img.cn/17img/images/202001/noimg/775b649e-a426-4670-8069-b079cce58d46.gif',
-        'https://pic4.zhimg.com/80/v2-9dca618ec56857954ee140102b861d83_1440w.jpg',
-        'https://pic1.zhimg.com/80/v2-1c1445f6bb2044d34ba1c45ecf2c6770_1440w.jpg',
-        'https://pic3.zhimg.com/80/v2-283129f9d77b1bc8e21a4993296066e2_1440w.jpg'
+      imgs: [
+        { url: require('@/assets/1j.png') },
+        { url: require('@/assets/bg.png') },
+        { url: require('@/assets/logo.png') },
+        { url: require('@/assets/sadmas.png') }
       ],
       avatarPrefix,
       carouselPrefix

@@ -10,7 +10,7 @@
         <el-col :span="18" :xs="24">
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="前沿科技" name="activity">
+              <el-tab-pane label="研究经力" name="activity">
                 <activity />
               </el-tab-pane>
               <el-tab-pane label="教育经历" name="timeline">

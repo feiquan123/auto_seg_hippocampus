@@ -22,7 +22,7 @@
         <div class="user-bio-section-header"><svg-icon icon-class="education" /><span>学历</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            美国麻省理工学院硕士研究生
+            太原理工信大学信息与计算机学院硕士研究生
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
             <el-progress :percentage="70" />
           </div>
           <div class="progress-item">
-            <span>人工智能</span>
+            <span>深度学习</span>
             <el-progress :percentage="18" />
           </div>
           <div class="progress-item">
@@ -43,7 +43,7 @@
             <el-progress :percentage="12" />
           </div>
           <div class="progress-item">
-            <span>后端开发</span>
+            <span>前端开发</span>
             <el-progress :percentage="100" status="success" />
           </div>
         </div>

@@ -17,29 +17,29 @@ export default {
     return {
       timeline: [
         {
-          timestamp: '2019年9月20日',
+          timestamp: '2019年9月15日',
           title: '研究生',
-          content: '美国麻省理工学院 2019年9月20日 08:46'
+          content: '太原理工大学 信息与计算机学院 软件工程 医学图像处理'
         },
         {
-          timestamp: '2015年9月20日',
-          title: '大学',
-          content: '清华大学 2015年9月20日 10:46'
+          timestamp: '2015年9月15日',
+          title: '本科生',
+          content: '山西大同大学 教育科学与技术学院 数字媒体技术'
         },
         {
-          timestamp: '2012年9月21日',
+          timestamp: '2012年9月1日',
           title: '高中',
-          content: '清华附中国际部 2012年9月21日 20:46'
+          content: '天镇一中 308  理科 袁权老师'
         },
         {
-          timestamp: '2009年1月27日',
+          timestamp: '2009年9月1日',
           title: '初中',
-          content: '北京市第四中学 2009年1月27日 09:46'
+          content: '天镇二中 '
         },
         {
-          timestamp: '2003年9月3日',
+          timestamp: '2003年9月1日',
           title: '小学',
-          content: '北京市海淀区七一小学 2003年9月3日 20:46'
+          content: '西北小学'
         }
       ]
     }
