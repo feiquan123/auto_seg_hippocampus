@@ -53,6 +53,9 @@
         <div v-if="this.secondSuccess">
           <div v-if="this.dataPreRequestSuccess">
             <el-row>
+              <br>
+              <hr>
+              <br>
               <el-button type="primary" icon="el-icon-document" @click="showPicClick">{{ picName }}</el-button>
               <img v-if="picHidden" :src="标准化" alt="标准化" class="data-pre-img">
               <img v-if="!picHidden" :src="切片" alt="切片" class="data-pre-img">
@@ -251,7 +254,7 @@ export default {
         this.dataPreRequestSuccessAction(res.data)
         this.showPreLoading = false
         this.loadingPre.close()
-        this.dataPreOutPutPath2 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/BiaoZhun'
+        this.dataPreOutPutPath2 = this.dataPreOutPutPath + '/standard'
         this.dataPreDisabled2 = false
         this.PicNoDisplay1 = false
       }).catch(error => {
@@ -284,11 +287,11 @@ export default {
       })
       this.showPreLoading = true
       // 数据预处理
-      dataPre(this.dataPreOutPutPath2).then(res => {
+      dataPre(this.dataPreDir1).then(res => {
         this.dataPreRequestSuccessAction(res.data)
         this.showPreLoading = false
         this.loadingPre.close()
-        this.dataPreOutPutPath3 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/QiePian'
+        this.dataPreOutPutPath3 = this.dataPreOutPutPath + '/slice'
         this.dataPreDisabled3 = false
         this.secondSuccess = true
       }).catch(error => {
@@ -314,11 +317,11 @@ export default {
       this.showPreLoading = true
 
       // 数据预处理
-      dataPre(this.dataPreOutPutPath3).then(res => {
+      dataPre(this.dataPreDir1).then(res => {
         this.dataPreRequestSuccessAction(res.data)
         this.showPreLoading = false
         this.loadingPre.close()
-        this.dataPreOutPutPath4 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/BianYuanChecked'
+        this.dataPreOutPutPath4 = this.dataPreOutPutPath + '/edge_detection'
         this.dataPreDisabled4 = false
       }).catch(error => {
         console.log(error)
@@ -342,11 +345,11 @@ export default {
       })
       this.showPreLoading = true
       // 数据预处理
-      dataPre(this.dataPreOutPutPath4).then(res => {
+      dataPre(this.dataPreDir1).then(res => {
         this.dataPreRequestSuccessAction(res.data)
         this.showPreLoading = false
         this.loadingPre.close()
-        this.dataPreOutPutPath5 = 'G:/file/Dataset/MICCAI_BraTS_2019/MICCAI_BraTS_2019_Data_Training1/IsRect'
+        this.dataPreOutPutPath5 = this.dataPreOutPutPath + '/rectangular_outline'
         this.dataPreDisabled5 = false
         this.fourSuccess = true
       }).catch(error => {
@@ -372,7 +375,7 @@ export default {
       this.showPreLoading = true
 
       // 数据预处理
-      dataPre(this.dataPreOutPutPath5).then(res => {
+      dataPre(this.dataPreDir1).then(res => {
         this.dataPreRequestSuccessAction(res.data)
         this.showPreLoading = false
         this.loadingPre.close()
@@ -386,6 +389,10 @@ export default {
         this.showPreLoading = false
         this.loadingPre.close()
       })
+    },
+
+    selectChange(e) {
+      this.selectValue = e
     },
 
     modelTestingBtnChange() {
